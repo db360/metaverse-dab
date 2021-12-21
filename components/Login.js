@@ -19,7 +19,7 @@ function Login() {
           {!isAuthenticating ? (
             <button
               onClick={authenticate}
-              className="border-2 border-opacity-50 backdrop-filter backdrop-blur-sm px-5 py-3 text-white hover:px-8 hover:bg-opacity-20 hover:bg-white transition-all duration-700 ease-in-out rounded-full"
+              className="btn"
             >
               Login Now
             </button>
