@@ -9,17 +9,17 @@ function Login() {
     <>
       {" "}
       <div className="bg-black relative text-white">
-        <div className="flex flex-col absolute z-50 h-4/4 w-full items-center justify-center space-y-1 mt-10">
+        <div className="flex flex-col absolute z-50 h-4/4 w-full items-center justify-center space-y-8 mt-10">
           <Image
             className="object-cover p-2"
             src="/images/dab-logo.png"
-            height={300}
-            width={500}
+            height={150}
+            width={300}
           />
           {!isAuthenticating ? (
             <button
               onClick={authenticate}
-              className="border-2 border-opacity-50 backdrop-filter backdrop-blur-sm px-5 py-3 text-white hover:px-8 hover:bg-opacity-20 hover:bg-white transition-all duration-700 ease-in-out rounded-full "
+              className="border-2 border-opacity-50 backdrop-filter backdrop-blur-sm px-5 py-3 text-white hover:px-8 hover:bg-opacity-20 hover:bg-white transition-all duration-700 ease-in-out rounded-full"
             >
               Login Now
             </button>
