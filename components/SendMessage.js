@@ -3,7 +3,7 @@ import { useMoralis } from "react-moralis";
 
 function SendMessage({ endOfMessagesRef }) {
   const { user, Moralis } = useMoralis();
-  const [ message, setMessage ] = useState("");
+  const [message, setMessage] = useState("");
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -22,21 +22,18 @@ function SendMessage({ endOfMessagesRef }) {
         ethAddress: user.get("ethAddress"),
       })
       .then(
-        () => {
+        (message) => {
           //The object was saved successfully
         },
         (error) => {
+          console.error(error)
           //The save Failed
           //Error = moralis Error code
         }
       );
+    // console.log(endOfMessagesRef.current);
 
-    // console.log(endOfMessagesRef)
-    if (endOfMessagesRef && endOfMessagesRef.current) {
-      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
-  }
-    // endOfMessagesRef.current.scrollIntoView({ behaviour: "smooth" });
-
+    endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
     setMessage("");
   };
 

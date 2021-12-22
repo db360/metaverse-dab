@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ByMoralis, useMoralis, useMoralisQuery } from "react-moralis";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
@@ -8,7 +8,7 @@ const MINS_DURATION = 30;
 
 function Messages() {
   const { user } = useMoralis();
-  const endOfMessagesRef = useRef(null);
+  const endOfMessagesRef = useRef(true);
 
   const { data, loading, error } = useMoralisQuery(
     "Messages",
@@ -26,7 +26,7 @@ function Messages() {
   );
 
   return (
-    <div className="pb-56">
+    <div className="pb-40">
       <div className="my-5">
         <ByMoralis
           variant="dark"
@@ -34,12 +34,12 @@ function Messages() {
         />
       </div>
 
-      <div className="space-y-10 p-4">{data.map(message => (
+      <div className="space-y-10 p-3">{data.map(message => (
         <Message key={message.id} message={message} />
       ))}</div>
 
       <div className="flex justify-center">
-        <SendMessage endOfMessagesRef />
+        <SendMessage endOfMessagesRef={endOfMessagesRef} />
       </div>
 
       <div ref={endOfMessagesRef} className="text-center text-gray-400 mt-5">
