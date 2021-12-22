@@ -1,7 +1,7 @@
-import { useMoralis, logout } from "react-moralis";
+import { useMoralis } from "react-moralis";
 
 function ChangeUsername() {
-  const { setUserData, isUserUpdating, userError, user } = useMoralis();
+  const { setUserData, isUserUpdating, userError, user, logout } = useMoralis();
 
   const setUserName = () => {
     const username = prompt(

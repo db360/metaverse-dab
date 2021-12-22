@@ -1,17 +1,44 @@
 import { useState } from "react";
 import { useMoralis } from "react-moralis";
 
-function SendMessage() {
+function SendMessage({ endOfMessagesRef }) {
   const { user, Moralis } = useMoralis();
-  const { message, setMessage } = useState("");
+  const [ message, setMessage ] = useState("");
 
   const sendMessage = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      if(!message) return;
+    if (!message) return;
 
-      
+    //Create Moralis table db
+    const Messages = Moralis.Object.extend("Messages");
+    //nueva instancia de messages para mandar
+    const messages = new Messages();
+
+    messages
+      .save({
+        message: message,
+        username: user.getUsername(),
+        ethAddress: user.get("ethAddress"),
+      })
+      .then(
+        () => {
+          //The object was saved successfully
+        },
+        (error) => {
+          //The save Failed
+          //Error = moralis Error code
+        }
+      );
+
+    // console.log(endOfMessagesRef)
+    if (endOfMessagesRef && endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
   }
+    // endOfMessagesRef.current.scrollIntoView({ behaviour: "smooth" });
+
+    setMessage("");
+  };
 
   return (
     <form className="flex fixed bottom-10 bg-black opacity-80 w-11/12 px-6 py4 max-w-2xl shadow-xl rounded-full border-2 border-pink-400">
@@ -22,7 +49,9 @@ function SendMessage() {
         className="flex-grow outline-none bg-transparent text-white placeholder-gray-500 pr-5 p-4"
         type="text"
       />
-      <button type="submit" onClick={sendMessage} className="btn-small-white">Send</button>
+      <button type="submit" onClick={sendMessage} className="btn-small-white">
+        Send
+      </button>
     </form>
   );
 }
